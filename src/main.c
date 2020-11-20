@@ -1,5 +1,10 @@
+// Import GTK library for Making of Window and Widgets
 #include <gtk/gtk.h>
+// Import Webkit
 #include <webkit2/webkit2.h>
+
+
+
 
 typedef struct {
     GtkWidget *w_webkit_webview;
@@ -38,7 +43,7 @@ int main(int argc, char *argv[])
     widgets->w_webkit_webview  = GTK_WIDGET(gtk_builder_get_object(builder, "webkit_webview"));
 
 
-    webkit_web_view_load_html(WEBKIT_WEB_VIEW(widgets->w_webkit_webview), buffer,"");
+    webkit_web_view_load_html(WEBKIT_WEB_VIEW(widgets->w_webkit_webview),buffer,"");
     
     gtk_builder_connect_signals(builder, NULL);
     g_object_unref(builder);
