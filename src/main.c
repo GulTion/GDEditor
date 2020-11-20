@@ -14,7 +14,7 @@ typedef struct {
 int main(int argc, char *argv[])
 {
    
-    FILE * f = fopen("render.html","r");
+    FILE * f = fopen("render","r");
     char * buffer = 0;
     long length;
 

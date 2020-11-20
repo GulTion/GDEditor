@@ -1,5 +1,5 @@
 # change application name here (executable output name)
-TARGET=main
+TARGET=GDEditor
 
 # compiler
 CC=gcc
