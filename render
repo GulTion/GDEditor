@@ -1,0 +1,267 @@
+<html>
+<body>
+<style type="text/css">
+  body{
+    margin: 0;
+    padding: 0;
+  }
+  .fulli{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+
+  }
+  
+    ._t{
+      display: block;
+      height: 100%;
+      font-size: 16px;
+      background: rgb(38.25,41,33.15);
+      color: white;
+      border: none;
+      padding: 0.5em;
+      position: relative;
+      left: -2px;
+     transition-duration: 0.5s;
+     transition-timing-function:ease-out;
+
+    }
+    ._h{
+
+      cursor: pointer;
+      text-align: center;
+      background:#555;
+      color: white;
+      font-family: monospace;
+      letter-spacing: 5px;
+      font-size: 14px;
+      width: calc(100% - 4px);
+      transition-duration: 0.5s;
+      position: relative;
+
+
+    }
+    
+  .editor{
+    overflow: hidden;
+    width: 50%;
+    position: relative;
+    top: 0;
+    background: #fffeef;
+    height: 100%;
+    display: flex;
+    flex-flow:column nowrap;
+    justify-content: flex-start;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out;
+
+  }
+  .live{
+      width: 50%;
+      position: relative;
+  }
+  #live{
+
+    position: absolute;
+    width: 100%;
+    writing-mode: wrap;
+    height: 100%;
+    border: none;
+  }
+  .Menu{
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+    background: rgb(38.25,41,33.15);
+    display: flex;
+    flex-flow: row nowrap;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.4);
+    border-radius: 100px;
+    z-index: 9999;
+    width: 150px;
+    transition-duration: 1s;
+    justify-content: center;
+
+  }
+  .Menu div{
+    padding: 0.25em 0.5em;
+    color: white;
+    font-family: monospace;
+    font-size: 16px;
+    cursor: pointer;
+    transition-duration: 0.5s;
+    position: relative;
+    transition-duration: 1s;
+
+
+  }
+  .Menu div:hover{
+/*   background: white;
+   color: rgb(38.25,41,33.15);*/
+  }
+  .Menu div:hover::after{
+    content: '';
+    background: rgba(255,255,255,0.5);
+    color: rgb(38.25,41,33.15);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: appear ease-out 0.25s ;
+
+  }
+  @keyframes appear{
+    0%{
+      transform: scale(0);
+    }
+    100%{
+      transform: scale(1);
+    }
+  }
+
+
+</style>
+
+  <div class="fulli">
+    <div id="editor" class="editor">
+      <div class="_h">HTML</div>
+      <textarea class="_t" id="html"></textarea>
+      <div class="_h">CSS</div>
+      <textarea class="_t" id="css"></textarea>
+      <div class="_h">JAVASCRIPT</div>
+      <textarea class="_t" id="js"></textarea>
+    </div>
+    <div id="livem" class="live">
+      <iframe src="" id="live"></iframe>
+      <div class="Menu">
+        <!-- <div id="save">SAVE</div>
+        <div id="open">OPEN</div> -->
+        <div  id="dir">LEFT</div>
+        <!-- <div>ABOUT</div> -->
+        <div id="full">MAXIMUM</div>
+        <input accept="application/json" style="display: none" type="file" id="file">
+      </div>
+      
+    </div>
+  </div>
+  <script type="text/javascript">
+  const html = document.getElementById('html');
+  const css = document.getElementById('css');
+  const js = document.getElementById('js');
+  const live = document.getElementById('live');
+  const full = document.getElementById('full');
+  const editor = document.getElementById('editor');
+  const dir = document.getElementById('dir');
+  const file = document.getElementById('file');
+  const open = document.getElementById('open');
+  const save = document.getElementById('save');
+
+
+  const data = {html:"",css:"",js:""}
+  const toggle = {0:false,1:false,2:false}
+  
+  html.addEventListener('keyup',(e)=>{
+    data["html"] = e.target.value
+      live.src = "data:text/html;charset=utf-8,"+encodeURI(`<html><style>${data["css"]}</style><body>${e.target.value}</body>${atob("PHNjcmlwdD4=")+data["js"]+atob("PC9zY3JpcHQ+")}</html>`);
+        
+        
+
+        
+
+
+  })
+  css.addEventListener('keyup',(e)=>{
+    data["css"] = e.target.value;
+      live.src = "data:text/html;charset=utf-8,"+encodeURI(`<html><style>${data["css"]}</style><body>${data["html"]}</body>${atob("PHNjcmlwdD4=")+data["js"]+atob("PC9zY3JpcHQ+")}</html>`);
+        
+        
+
+
+  })
+
+   js.addEventListener('keyup',(e)=>{
+    data["js"] = e.target.value;
+      live.src = "data:text/html;charset=utf-8,"+encodeURI(`<html><style>${data["css"]}</style><body>${data["html"]}</body>${atob("PHNjcmlwdD4=")+data["js"]+atob("PC9zY3JpcHQ+")}</html>`);
+        
+        
+  })
+
+   const mainData = {
+    max:false,dir:false
+   }
+
+  const _h = document.querySelectorAll('._h');
+  const arr = [html,css,js];
+  for(let i=0;i<3;i++)
+  _h[i].addEventListener('click',(e)=>{
+    arr[i].style.height = !toggle[i]?"0%":"100%";
+    arr[i].style.opacity = !toggle[i]?"0":"1";
+    arr[i].style.padding = !toggle[i]?"0em":"0.5em";
+    toggle[i] = !toggle[i]
+
+
+  });
+
+full.addEventListener('click',(e)=>{
+    editor.style.width = mainData.max?"400px":"0px";
+    livem.style.width = !mainData.max?"800px":"400px";
+    full.innerHTML = mainData.max?"MAXIMUM":"MINIMUM"
+    mainData.max = !mainData.max
+
+  });
+dir.onclick = (e)=>{
+  const par = e.target.parentElement.style;
+  par.left = !mainData.dir?"5px":"";
+  par.right = !mainData.dir?"":"5px";
+  e.target.innerHTML = !mainData.dir?"RIGHT":"LEFT";
+  mainData.dir = !mainData.dir;
+}
+
+file.addEventListener('change',(e)=>{
+  var f = e.target.files[0];
+  if(f){
+    const r = new FileReader();
+    r.onload = function(ev){
+      var contents = ev.target.result;
+      console.log(contents)
+    }
+    r.readAsText(f);
+  }else{
+    alert("Unable To Open file")
+  }
+})
+
+open.onclick =(e)=>{
+  file.click();
+}
+
+save.onclick=e=>{
+  var element = document.createElement('a');
+   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)));
+   const _file_name_ = prompt("Enter the File Name:");
+  element.setAttribute('download',_file_name_+".json");
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+  element.downlaod();
+
+  document.body.removeChild(element);
+
+}
+
+
+
+
+
+
+
+</script>
+
+</body>
+
+</html>
