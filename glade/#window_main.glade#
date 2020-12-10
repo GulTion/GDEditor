@@ -3,10 +3,14 @@
 <interface>
   <requires lib="gtk+" version="3.10"/>
   <requires lib="webkit2gtk" version="2.12"/>
+  <object class="WebKitSettings" id="settings1">
+    <property name="user_agent">Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0 Safari/605.1.15</property>
+  </object>
   <object class="GtkWindow" id="window">
     <property name="can_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
+    <property name="resizable">False</property>
     <property name="has_resize_grip">True</property>
     <signal name="destroy" handler="on_window_destroy" swapped="no"/>
     <child type="titlebar">

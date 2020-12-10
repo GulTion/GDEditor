@@ -169,10 +169,6 @@
       live.src = "data:text/html;charset=utf-8,"+encodeURI(`<html><style>${data["css"]}</style><body>${e.target.value}</body>${atob("PHNjcmlwdD4=")+data["js"]+atob("PC9zY3JpcHQ+")}</html>`);
         
         
-
-        
-
-
   })
   css.addEventListener('keyup',(e)=>{
     data["css"] = e.target.value;
