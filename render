@@ -98,10 +98,6 @@
 
 
   }
-  .Menu div:hover{
-/*   background: white;
-   color: rgb(38.25,41,33.15);*/
-  }
   .Menu div:hover::after{
     content: '';
     background: rgba(255,255,255,0.5);
@@ -138,10 +134,7 @@
     <div id="livem" class="live">
       <iframe src="" id="live"></iframe>
       <div class="Menu">
-        <!-- <div id="save">SAVE</div>
-        <div id="open">OPEN</div> -->
         <div  id="dir">LEFT</div>
-        <!-- <div>ABOUT</div> -->
         <div id="full">MAXIMUM</div>
         <input accept="application/json" style="display: none" type="file" id="file">
       </div>
@@ -156,9 +149,6 @@
   const full = document.getElementById('full');
   const editor = document.getElementById('editor');
   const dir = document.getElementById('dir');
-  const file = document.getElementById('file');
-  const open = document.getElementById('open');
-  const save = document.getElementById('save');
 
 
   const data = {html:"",css:"",js:""}
@@ -166,9 +156,9 @@
   
   html.addEventListener('keyup',(e)=>{
     data["html"] = e.target.value
-      live.src = "data:text/html;charset=utf-8,"+encodeURI(`<html><style>${data["css"]}</style><body>${e.target.value}</body>${atob("PHNjcmlwdD4=")+data["js"]+atob("PC9zY3JpcHQ+")}</html>`);
+      live.src = "data:text/html;charset=utf-8,"+encodeURI(`<html><style>${data["css"]}</style><body>${data["html"]}</body>${atob("PHNjcmlwdD4=")+data["js"]+atob("PC9zY3JpcHQ+")}</html>`);
         
-        
+  
   })
   css.addEventListener('keyup',(e)=>{
     data["css"] = e.target.value;
@@ -216,44 +206,6 @@ dir.onclick = (e)=>{
   e.target.innerHTML = !mainData.dir?"RIGHT":"LEFT";
   mainData.dir = !mainData.dir;
 }
-
-file.addEventListener('change',(e)=>{
-  var f = e.target.files[0];
-  if(f){
-    const r = new FileReader();
-    r.onload = function(ev){
-      var contents = ev.target.result;
-      console.log(contents)
-    }
-    r.readAsText(f);
-  }else{
-    alert("Unable To Open file")
-  }
-})
-
-open.onclick =(e)=>{
-  file.click();
-}
-
-save.onclick=e=>{
-  var element = document.createElement('a');
-   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(data)));
-   const _file_name_ = prompt("Enter the File Name:");
-  element.setAttribute('download',_file_name_+".json");
-  element.style.display = 'none';
-  document.body.appendChild(element);
-
-  element.click();
-  element.downlaod();
-
-  document.body.removeChild(element);
-
-}
-
-
-
-
-
 
 
 </script>
