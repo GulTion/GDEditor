@@ -2,7 +2,7 @@
 for What ? **For Rendering HTML, CSS & JavaScript Without External Heavy Editor or Heavy Browser**
 by *Gulshan* & *Deepak*
 
-![SCREENSHOT OF GDEDITOR](https://drive.google.com/file/d/1Pw-p5I4Js_IHWsVacEkRNbZDk4bNOfYY/view?usp=sharing)
+![SCREENSHOT OF GDEDITOR](https://github.com/GulTion/GDEditor/blob/master/screenshot/Screenshot%20at%202020-11-20%2006-51-49.png)
 
 ## Before Start Need to Install some Dependent Libraries
 
